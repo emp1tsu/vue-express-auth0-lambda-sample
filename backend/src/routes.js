@@ -15,7 +15,7 @@ const checkJwt = jwt({
   }),
 
   // Validate the audience and the issuer.
-  audience: process.env.AUTH0_AUDIENCE,
+  audience: "https://micro-blog-app",
   issuer: `https://${process.env.AUTH0_DOMAIN}/`,
   algorithms: ["RS256"],
 });
@@ -58,7 +58,7 @@ router.post("/", checkJwt, async (req, res) => {
 });
 
 async function loadMicroPostsCollection() {
-  const client = await MongoClient.connect(process.env.DB_HOST);
+  const client = await MongoClient.connect(process.env.MONGODB_URL);
   return client.db("micro-blog").collection("micro-posts");
 }
 
